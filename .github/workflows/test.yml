@@ -10,6 +10,8 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
+  checks: write
 
 jobs:
   test:
@@ -29,8 +31,16 @@ jobs:
         bundle exec rspec spec
 
     - name: Report coverage
-      uses: ggilder/codecoverage@6a0a9c002c49b6e5e4ce15f22574275600163618
+      uses: ggilder/codecoverage@v1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERAGE_FILE_PATH: coverage/lcov/codecoverage-test-tmp.lcov
         COVERAGE_FORMAT: lcov
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage.lcov
+        path: coverage/lcov/codecoverage-test-tmp.lcov
+        retention-days: 1
+        include-hidden-files: true
