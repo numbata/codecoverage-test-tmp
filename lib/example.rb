@@ -10,7 +10,11 @@ class Example
   end
 
   def extra_method1
-    true
+    if extra_method0
+      "foo"
+    else
+      "bar"
+    end
   end
 
   def extra_method2
