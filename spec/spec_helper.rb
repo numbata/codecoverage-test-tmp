@@ -7,8 +7,6 @@ Bundler.require(:default, :test)
 require "simplecov"
 require "simplecov-lcov"
 
-require_relative "../lib/example"
-
 SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
 
 SimpleCov.start do
@@ -21,8 +19,10 @@ SimpleCov.start do
       SimpleCov::Formatter::LcovFormatter,
     ],
   )
+  add_filter 'spec'
 end
 
+require_relative "../lib/example"
 
 RSpec.configure do |config|
   config.disable_monkey_patching!
