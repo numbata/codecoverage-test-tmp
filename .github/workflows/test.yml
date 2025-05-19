@@ -1,0 +1,32 @@
+name: RSpec
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out branch
+      uses: actions/checkout@v4
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.4
+    - name: Run rspec
+      run: |
+        bundle update
+        bundle exec rspec
+    - name: Report coverage
+      users: ggilder/codecoverage@6a0a9c0
+      env:
+        COVERAGE_FILE_PATH: coverage/lcov/codecoverage-test.lcov
+        COVERAGE_FORMAT: lcov
