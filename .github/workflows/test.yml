@@ -10,7 +10,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   test:
@@ -31,7 +30,7 @@ jobs:
 
     - name: Report coverage
       uses: ggilder/codecoverage@6a0a9c002c49b6e5e4ce15f22574275600163618
-      env:
+      with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERAGE_FILE_PATH: coverage/lcov/codecoverage-test.lcov
         COVERAGE_FORMAT: lcov
